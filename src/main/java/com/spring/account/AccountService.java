@@ -29,8 +29,8 @@ public class AccountService implements UserDetailsService {
 
 	@PostConstruct	
 	protected void initialize() {
-		save(new Account("user", "demo", "ROLE_USER"));
-		save(new Account("admin", "admin", "ROLE_ADMIN"));
+		save(new AccountBuilder("user", "demo", Account.RoleConstants.USER).setFirstName("userFirstName").setLastName("userLastName").build());
+		save(new AccountBuilder("admin", "admin", Account.RoleConstants.ADMIN).setFirstName("adminFirstName").setLastName("adminLastName").build());
 	}
 
 	@Transactional

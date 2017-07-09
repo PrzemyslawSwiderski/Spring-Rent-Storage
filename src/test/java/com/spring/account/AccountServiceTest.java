@@ -54,7 +54,7 @@ public class AccountServiceTest {
 	@Test
 	public void shouldReturnUserDetails() {
 		// arrange
-		Account demoUser = new Account("user@example.com", "demo", "ROLE_USER");
+		Account demoUser = new AccountBuilder("user@example.com", "demo", Account.RoleConstants.USER).build();
 		when(accountRepositoryMock.findOneByEmail("user@example.com")).thenReturn(demoUser);
 
 		// act

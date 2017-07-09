@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java-version>1.8</java-version>
+        <mysql.connector.version>5.1.21</mysql.connector.version>
         <!-- Override Spring version -->
         <!-- spring.version>4.3.9.RELEASE</spring.version -->
         <!-- Thymeleaf 3 -->
@@ -99,6 +100,13 @@
             <artifactId>javax.el-api</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
