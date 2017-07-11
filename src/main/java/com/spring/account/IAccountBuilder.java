@@ -1,8 +1,8 @@
 package com.spring.account;
 
-import com.spring.utils.Builder;
+import com.spring.utils.IBuilder;
 
-public interface IAccountBuilder extends Builder<Account> {
+public interface IAccountBuilder extends IBuilder<Account> {
 
     IAccountBuilder setEmail(String email);
 

@@ -1,51 +1,64 @@
 package com.spring.account;
 
-public class AccountBuilder implements IAccountBuilder{
+import com.spring.storage.Storage;
 
-    private Account account = new Account();
+import java.util.HashSet;
+import java.util.Set;
 
-    public AccountBuilder(){
+public final class AccountBuilder implements IAccountBuilder{
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String role = "ROLE_USER";
+    private Set<Storage> storages = new HashSet<Storage>(
+            0);
 
+    private AccountBuilder() {
     }
 
-    public AccountBuilder(String email,String password,String role){
-        this.account.setEmail(email);
-        this.account.setPassword(password);
-        this.account.setRole(role);
+    public static AccountBuilder anAccount() {
+        return new AccountBuilder();
     }
 
-    @Override
+    public AccountBuilder setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public AccountBuilder setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public AccountBuilder setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public AccountBuilder setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public AccountBuilder setRole(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public AccountBuilder setStorages(Set<Storage> storages) {
+        this.storages = storages;
+        return this;
+    }
+
     public Account build() {
-        return this.account;
-    }
-
-    @Override
-    public IAccountBuilder setEmail(String email) {
-        this.account.setEmail(email);
-        return this;
-    }
-
-    @Override
-    public IAccountBuilder setPassword(String password) {
-        this.account.setPassword(password);
-        return this;
-    }
-
-    @Override
-    public IAccountBuilder setRole(String role) {
-        this.account.setRole(role);
-        return this;
-    }
-
-    @Override
-    public IAccountBuilder setLastName(String lastName) {
-        this.account.setLastName(lastName);
-        return this;
-    }
-
-    @Override
-    public IAccountBuilder setFirstName(String firstName) {
-        this.account.setFirstName(firstName);
-        return this;
+        Account account = new Account();
+        account.setEmail(email);
+        account.setFirstName(firstName);
+        account.setLastName(lastName);
+        account.setPassword(password);
+        account.setRole(role);
+        account.setStorages(storages);
+        return account;
     }
 }

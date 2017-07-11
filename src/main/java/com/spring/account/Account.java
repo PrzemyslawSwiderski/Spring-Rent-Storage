@@ -1,10 +1,12 @@
 package com.spring.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.utils.Builder;
+import com.spring.storage.Storage;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 @Entity
@@ -12,15 +14,17 @@ import java.time.Instant;
 public class Account implements java.io.Serializable {
 
     public final class RoleConstants {
-        private RoleConstants(){}
+        private RoleConstants() {
+        }
 
-        public static final String CLIENT="ROLE_CLIENT";
-        public static final String USER="ROLE_USER";
-        public static final String ADMIN="ROLE_ADMIN";
+        public static final String CLIENT = "ROLE_CLIENT";
+        public static final String USER = "ROLE_USER";
+        public static final String ADMIN = "ROLE_ADMIN";
     }
 
     @Id
     @GeneratedValue
+    @Column(name = "account_id", unique = true, nullable = false)
     private Long id;
 
     @Column(unique = true)
@@ -38,6 +42,10 @@ public class Account implements java.io.Serializable {
     private String role = "ROLE_USER";
 
     private Instant created = Instant.now();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private Set<Storage> storages = new HashSet<Storage>(
+            0);
 
     protected Account() {
 
@@ -89,6 +97,14 @@ public class Account implements java.io.Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Set<Storage> getStorages() {
+        return storages;
+    }
+
+    public void setStorages(Set<Storage> storages) {
+        this.storages = storages;
     }
 
 }

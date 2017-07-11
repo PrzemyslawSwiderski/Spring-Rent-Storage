@@ -1,5 +1,5 @@
 package com.spring.utils;
 
-public interface Builder<T> {
+public interface IBuilder<T> {
     T build();
 }

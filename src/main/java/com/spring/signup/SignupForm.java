@@ -36,6 +36,6 @@ public class SignupForm {
     }
 
     public Account createAccount() {
-        return new AccountBuilder(getEmail(), getPassword(), Account.RoleConstants.USER).build();
+        return AccountBuilder.anAccount().setEmail(getEmail()).setPassword(getPassword()).setRole(Account.RoleConstants.USER).build();
     }
 }
