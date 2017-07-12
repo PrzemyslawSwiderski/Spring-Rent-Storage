@@ -1,14 +1,18 @@
 package com.spring.storage;
 
+import com.github.javafaker.Faker;
 import com.spring.account.Account;
 import com.spring.location.Location;
 
+import java.math.BigDecimal;
+import java.util.Random;
+
 public final class StorageBuilder implements IStorageBuilder {
     private Location location;
-    private Float freeSpace;
-    private Float overallSpace;
+    private BigDecimal freeSpace;
+    private BigDecimal overallSpace;
     private String description;
-    private Float price;
+    private BigDecimal price;
     private Account account;
 
     private StorageBuilder() {
@@ -23,12 +27,12 @@ public final class StorageBuilder implements IStorageBuilder {
         return this;
     }
 
-    public StorageBuilder setFreeSpace(Float freeSpace) {
+    public StorageBuilder setFreeSpace(BigDecimal freeSpace) {
         this.freeSpace = freeSpace;
         return this;
     }
 
-    public StorageBuilder setOverallSpace(Float overallSpace) {
+    public StorageBuilder setOverallSpace(BigDecimal overallSpace) {
         this.overallSpace = overallSpace;
         return this;
     }
@@ -38,7 +42,7 @@ public final class StorageBuilder implements IStorageBuilder {
         return this;
     }
 
-    public StorageBuilder setPrice(Float price) {
+    public StorageBuilder setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -56,6 +60,27 @@ public final class StorageBuilder implements IStorageBuilder {
         storage.setDescription(description);
         storage.setPrice(price);
         storage.setAccount(account);
+        return storage;
+    }
+
+    @Override
+    public Storage generateExample() {
+
+        Faker faker = new Faker();
+        Random r = new Random();
+
+        Float min = 10.0f, max = 100.0f;
+        Float overallSpace = min + r.nextFloat() * (max - min);
+        Float freeSpace = r.nextFloat() * (overallSpace);
+        Float price = 1.0f + r.nextFloat() * (1000.0f - 1.0f);
+
+        Storage storage = StorageBuilder.aStorage()
+                .setDescription(faker.lorem().sentence(15))
+                .setFreeSpace(BigDecimal.valueOf(freeSpace))
+                .setOverallSpace(BigDecimal.valueOf(overallSpace))
+                .setPrice(BigDecimal.valueOf(price))
+                .build();
+
         return storage;
     }
 }

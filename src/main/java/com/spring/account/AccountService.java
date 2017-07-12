@@ -29,12 +29,6 @@ public class AccountService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostConstruct
-    protected void initialize() {
-        save(AccountBuilder.anAccount().setEmail("user").setPassword("demo").setRole(Account.RoleConstants.USER).setFirstName("userFirstName").setLastName("userLastName").build());
-        save(AccountBuilder.anAccount().setEmail("admin").setPassword("admin").setRole(Account.RoleConstants.ADMIN).setFirstName("adminFirstName").setLastName("adminLastName").build());
-    }
-
     @Transactional
     public Account save(Account account) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));

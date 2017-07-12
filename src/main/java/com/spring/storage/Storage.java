@@ -2,10 +2,16 @@ package com.spring.storage;
 
 import com.spring.account.Account;
 import com.spring.location.Location;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 
+@Setter
+@Getter
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "storage")
@@ -14,81 +20,30 @@ public class Storage implements java.io.Serializable {
     @Id
     @Column(name = "storage_id", unique = true, nullable = false)
     @GeneratedValue
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @OneToOne(mappedBy = "storage", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Location location;
 
-    @Column(name = "free_space", precision = 6)
-    private Float freeSpace;
+    @Column(name = "free_space", columnDefinition = "decimal", scale = 3)
+    private BigDecimal freeSpace;
 
-    @Column(name = "overall_space", precision = 6)
-    private Float overallSpace;
+    @Column(name = "overall_space", columnDefinition = "decimal", scale = 3)
+    private BigDecimal overallSpace;
 
     private String description;
 
-    @Column(precision = 2)
-    private Float price;
+    @Column(scale = 2)
+    private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "account_id")
     private Account account;
 
     private Instant created = Instant.now();
 
-    public Instant getCreated() {
-        return created;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Float getFreeSpace() {
-        return freeSpace;
-    }
-
-    public void setFreeSpace(Float freeSpace) {
-        this.freeSpace = freeSpace;
-    }
-
-    public Float getOverallSpace() {
-        return overallSpace;
-    }
-
-    public void setOverallSpace(Float overallSpace) {
-        this.overallSpace = overallSpace;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
+    public String toString() {
+        return String.format("com.spring.storage.Storage(id=%d, freeSpace=%s, overallSpace=%s, description=%s, price=%s, created=%s)", this.getId(), this.getFreeSpace(), this.getOverallSpace(), this.getDescription(), this.getPrice(), this.getCreated());
     }
 }

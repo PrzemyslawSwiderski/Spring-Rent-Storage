@@ -2,12 +2,17 @@ package com.spring.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.storage.Storage;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
@@ -25,6 +30,7 @@ public class Account implements java.io.Serializable {
     @Id
     @GeneratedValue
     @Column(name = "account_id", unique = true, nullable = false)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(unique = true)
@@ -43,7 +49,7 @@ public class Account implements java.io.Serializable {
 
     private Instant created = Instant.now();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.PERSIST)
     private Set<Storage> storages = new HashSet<Storage>(
             0);
 
@@ -51,60 +57,10 @@ public class Account implements java.io.Serializable {
 
     }
 
-    public Long getId() {
-        return id;
+
+    public String toString() {
+        return String.format("com.spring.account.Account(id=%d, email=%s, firstName=%s, lastName=%s, password=%s, role=%s, created=%s)", this.getId(), this.getEmail(), this.getFirstName(), this.getLastName(), this.getPassword(), this.getRole(), this.getCreated());
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Instant getCreated() {
-        return created;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Set<Storage> getStorages() {
-        return storages;
-    }
-
-    public void setStorages(Set<Storage> storages) {
-        this.storages = storages;
-    }
 
 }

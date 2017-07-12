@@ -3,6 +3,8 @@ package com.spring.location;
 import com.spring.storage.Storage;
 import com.spring.utils.IBuilder;
 
+import java.math.BigDecimal;
+
 public interface ILocationBuilder extends IBuilder<Location> {
     ILocationBuilder setStorage(Storage storage);
 
@@ -12,7 +14,7 @@ public interface ILocationBuilder extends IBuilder<Location> {
 
     ILocationBuilder setCountry(String country);
 
-    ILocationBuilder setLatitude(Float latitude);
+    ILocationBuilder setLatitude(BigDecimal latitude);
 
-    ILocationBuilder setLongitude(Float longitude);
+    ILocationBuilder setLongitude(BigDecimal longitude);
 }

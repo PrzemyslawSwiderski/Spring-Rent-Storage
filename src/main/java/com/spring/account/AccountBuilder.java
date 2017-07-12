@@ -1,11 +1,12 @@
 package com.spring.account;
 
+import com.github.javafaker.Faker;
 import com.spring.storage.Storage;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public final class AccountBuilder implements IAccountBuilder{
+public final class AccountBuilder implements IAccountBuilder {
     private String email;
     private String firstName;
     private String lastName;
@@ -59,6 +60,20 @@ public final class AccountBuilder implements IAccountBuilder{
         account.setPassword(password);
         account.setRole(role);
         account.setStorages(storages);
+        return account;
+    }
+
+    @Override
+    public Account generateExample() {
+        Faker faker = new Faker();
+
+        Account account = AccountBuilder.anAccount()
+                .setEmail(faker.internet().emailAddress())
+                .setPassword(faker.internet().password())
+                .setRole(Account.RoleConstants.USER)
+                .setFirstName(faker.name().firstName())
+                .setLastName(faker.name().lastName()).build();
+
         return account;
     }
 }

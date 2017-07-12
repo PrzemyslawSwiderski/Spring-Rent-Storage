@@ -4,17 +4,19 @@ import com.spring.account.Account;
 import com.spring.location.Location;
 import com.spring.utils.IBuilder;
 
+import java.math.BigDecimal;
+
 public interface IStorageBuilder extends IBuilder<Storage> {
 
     IStorageBuilder setLocation(Location location);
 
     IStorageBuilder setAccount(Account account);
 
-    IStorageBuilder setFreeSpace(Float freeSpace);
+    IStorageBuilder setFreeSpace(BigDecimal freeSpace);
 
-    IStorageBuilder setOverallSpace(Float overallSpace);
+    IStorageBuilder setOverallSpace(BigDecimal overallSpace);
 
     IStorageBuilder setDescription(String description);
 
-    IStorageBuilder setPrice(Float price);
+    IStorageBuilder setPrice(BigDecimal price);
 }

@@ -1,13 +1,17 @@
 package com.spring.location;
 
+import com.github.javafaker.Faker;
 import com.spring.storage.Storage;
 
-public final class LocationBuilder implements ILocationBuilder{
+import java.math.BigDecimal;
+import java.util.Random;
+
+public final class LocationBuilder implements ILocationBuilder {
     private String city;
     private String street;
     private String country;
-    private Float latitude;
-    private Float longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private Storage storage;
 
     private LocationBuilder() {
@@ -32,12 +36,12 @@ public final class LocationBuilder implements ILocationBuilder{
         return this;
     }
 
-    public LocationBuilder setLatitude(Float latitude) {
+    public LocationBuilder setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public LocationBuilder setLongitude(Float longitude) {
+    public LocationBuilder setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
         return this;
     }
@@ -55,6 +59,22 @@ public final class LocationBuilder implements ILocationBuilder{
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         location.setStorage(storage);
+        return location;
+    }
+
+    @Override
+    public Location generateExample() {
+        Faker faker = new Faker();
+        Random r = new Random();
+
+        Location location = LocationBuilder.aLocation()
+                .setCity(faker.address().city())
+                .setCountry(faker.address().country())
+                .setStreet(faker.address().streetAddress())
+                .setLatitude(BigDecimal.valueOf(-60.0f + r.nextFloat() * (60.0f - (-60.0f))))
+                .setLongitude(BigDecimal.valueOf(-180.0f + r.nextFloat() * (180.0f - (-180.0f))))
+                .build();
+
         return location;
     }
 }

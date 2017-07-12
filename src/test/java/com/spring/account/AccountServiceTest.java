@@ -34,8 +34,12 @@ public class AccountServiceTest {
 
 	@Test
 	public void shouldInitializeWithTwoDemoUsers() {
+		Account account1 = AccountBuilder.anAccount().setEmail("user").setPassword("demo").setRole(Account.RoleConstants.USER).setFirstName("userFirstName").setLastName("userLastName").build();
+		Account account2 = AccountBuilder.anAccount().setEmail("admin").setPassword("admin").setRole(Account.RoleConstants.ADMIN).setFirstName("adminFirstName").setLastName("adminLastName").build();
+
 		// act
-		accountService.initialize();
+		accountService.save(account1);
+		accountService.save(account2);
 		// assert
 		verify(accountRepositoryMock, times(2)).save(any(Account.class));
 	}

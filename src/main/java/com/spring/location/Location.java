@@ -1,10 +1,16 @@
 package com.spring.location;
 
 import com.spring.storage.Storage;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 
+@Setter
+@Getter
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "location")
@@ -13,6 +19,7 @@ public class Location implements java.io.Serializable {
     @Id
     @GeneratedValue
     @Column(name = "location_id", unique = true, nullable = false)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     private String city;
@@ -21,71 +28,19 @@ public class Location implements java.io.Serializable {
 
     private String country;
 
-    @Column(precision = 6)
-    private Float latitude;
+    @Column(scale = 4)
+    private BigDecimal latitude;
 
-    @Column(precision = 6)
-    private Float longitude;
+    @Column(scale = 4)
+    private BigDecimal longitude;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
     private Instant created = Instant.now();
 
-    public Instant getCreated() {
-        return created;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Storage getStorage() {
-        return storage;
-    }
-
-    public void setStorage(Storage storage) {
-        this.storage = storage;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
-    public Float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
+    public String toString() {
+        return String.format("com.spring.location.Location(id=%d, city=%s, street=%s, country=%s, latitude=%s, longitude=%s, created=%s)", this.getId(), this.getCity(), this.getStreet(), this.getCountry(), this.getLatitude(), this.getLongitude(), this.getCreated());
     }
 }
