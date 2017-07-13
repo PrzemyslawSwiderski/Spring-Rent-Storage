@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationService {
 
-    @Autowired
-    private LocationRepository locationRepository;
+  @Autowired
+  private LocationRepository locationRepository;
 
-    public LocationRepository getLocationRepository() {
-        return locationRepository;
-    }
+  public LocationRepository getLocationRepository() {
+    return locationRepository;
+  }
 
 }

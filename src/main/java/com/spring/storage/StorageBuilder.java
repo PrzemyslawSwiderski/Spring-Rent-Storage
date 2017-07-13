@@ -3,84 +3,84 @@ package com.spring.storage;
 import com.github.javafaker.Faker;
 import com.spring.account.Account;
 import com.spring.location.Location;
-
 import java.math.BigDecimal;
 import java.util.Random;
 
 public final class StorageBuilder implements IStorageBuilder {
-    private Location location;
-    private BigDecimal freeSpace;
-    private BigDecimal overallSpace;
-    private String description;
-    private BigDecimal price;
-    private Account account;
 
-    private StorageBuilder() {
-    }
+  private Location location;
+  private BigDecimal freeSpace;
+  private BigDecimal overallSpace;
+  private String description;
+  private BigDecimal price;
+  private Account account;
 
-    public static StorageBuilder aStorage() {
-        return new StorageBuilder();
-    }
+  private StorageBuilder() {
+  }
 
-    public StorageBuilder setLocation(Location location) {
-        this.location = location;
-        return this;
-    }
+  public static StorageBuilder aStorage() {
+    return new StorageBuilder();
+  }
 
-    public StorageBuilder setFreeSpace(BigDecimal freeSpace) {
-        this.freeSpace = freeSpace;
-        return this;
-    }
+  public StorageBuilder setLocation(Location location) {
+    this.location = location;
+    return this;
+  }
 
-    public StorageBuilder setOverallSpace(BigDecimal overallSpace) {
-        this.overallSpace = overallSpace;
-        return this;
-    }
+  public StorageBuilder setFreeSpace(BigDecimal freeSpace) {
+    this.freeSpace = freeSpace;
+    return this;
+  }
 
-    public StorageBuilder setDescription(String description) {
-        this.description = description;
-        return this;
-    }
+  public StorageBuilder setOverallSpace(BigDecimal overallSpace) {
+    this.overallSpace = overallSpace;
+    return this;
+  }
 
-    public StorageBuilder setPrice(BigDecimal price) {
-        this.price = price;
-        return this;
-    }
+  public StorageBuilder setDescription(String description) {
+    this.description = description;
+    return this;
+  }
 
-    public StorageBuilder setAccount(Account account) {
-        this.account = account;
-        return this;
-    }
+  public StorageBuilder setPrice(BigDecimal price) {
+    this.price = price;
+    return this;
+  }
 
-    public Storage build() {
-        Storage storage = new Storage();
-        storage.setLocation(location);
-        storage.setFreeSpace(freeSpace);
-        storage.setOverallSpace(overallSpace);
-        storage.setDescription(description);
-        storage.setPrice(price);
-        storage.setAccount(account);
-        return storage;
-    }
+  public StorageBuilder setAccount(Account account) {
+    this.account = account;
+    return this;
+  }
 
-    @Override
-    public Storage generateExample() {
+  public Storage build() {
+    Storage storage = new Storage();
+    storage.setLocation(location);
+    storage.setFreeSpace(freeSpace);
+    storage.setOverallSpace(overallSpace);
+    storage.setDescription(description);
+    storage.setPrice(price);
+    storage.setAccount(account);
+    return storage;
+  }
 
-        Faker faker = new Faker();
-        Random r = new Random();
+  @Override
+  public Storage generateExample() {
 
-        Float min = 10.0f, max = 100.0f;
-        Float overallSpace = min + r.nextFloat() * (max - min);
-        Float freeSpace = r.nextFloat() * (overallSpace);
-        Float price = 1.0f + r.nextFloat() * (1000.0f - 1.0f);
+    Faker faker = new Faker();
+    Random r = new Random();
 
-        Storage storage = StorageBuilder.aStorage()
-                .setDescription(faker.lorem().sentence(15))
-                .setFreeSpace(BigDecimal.valueOf(freeSpace))
-                .setOverallSpace(BigDecimal.valueOf(overallSpace))
-                .setPrice(BigDecimal.valueOf(price))
-                .build();
+    Float min = 10.0f, max = 100.0f;
+    Float overallSpace = min + r.nextFloat() * (max - min);
+    Float freeSpace = r.nextFloat() * (overallSpace);
+    Float price = 1.0f + r.nextFloat() * (1000.0f - 1.0f);
 
-        return storage;
-    }
+    Storage storage = StorageBuilder.aStorage()
+        .setDescription(faker.lorem().sentence(15))
+        .setFreeSpace(BigDecimal.valueOf(freeSpace))
+        .setOverallSpace(BigDecimal.valueOf(overallSpace))
+        .setPrice(BigDecimal.valueOf(price))
+        .build();
+
+    return storage;
+  }
 }

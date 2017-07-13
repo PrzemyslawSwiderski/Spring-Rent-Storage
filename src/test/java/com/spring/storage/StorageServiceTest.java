@@ -1,5 +1,9 @@
 package com.spring.storage;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -7,29 +11,22 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 @RunWith(MockitoJUnitRunner.class)
 public class StorageServiceTest {
 
-    @InjectMocks
-    private StorageService storageService = new StorageService();
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
+  @InjectMocks
+  private StorageService storageService = new StorageService();
+  @InjectMocks
+  private StorageRepository storageRepositoryMock;
 
-    @InjectMocks
-    private StorageRepository storageRepositoryMock;
+  @Test
+  public void shouldSaveStorage() throws Exception {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    // assert
+    verify(storageRepositoryMock, times(1)).save(any(Storage.class));
 
-    @Test
-    public void shouldSaveStorage() throws Exception {
-
-
-        // assert
-        verify(storageRepositoryMock, times(1)).save(any(Storage.class));
-
-    }
+  }
 
 }

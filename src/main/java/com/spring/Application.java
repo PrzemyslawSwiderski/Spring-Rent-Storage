@@ -1,3 +1,5 @@
 package com.spring;
 
-public interface Application {}
+public interface Application {
+
+}

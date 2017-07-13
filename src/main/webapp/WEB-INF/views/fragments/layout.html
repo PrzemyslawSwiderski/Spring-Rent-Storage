@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Demo project</a>
+            <a class="navbar-brand" th:classappend="${module == 'home' ? 'active' : ''}" href="#">Demo project</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -23,6 +23,9 @@
                 </li>
                 <li th:classappend="${module == 'about' ? 'active' : ''}">
                     <a href="#about" th:href="@{/about}">About</a>
+                </li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'profile' ? 'active' : ''}">
+                    <a href="#profile" th:href="@{/profile}">Profile</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
