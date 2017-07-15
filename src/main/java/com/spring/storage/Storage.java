@@ -15,11 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "storage")
@@ -45,16 +44,21 @@ public class Storage implements java.io.Serializable {
   @Column(scale = 2)
   private BigDecimal price;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "account_id")
   private Account account;
 
   private Instant created = Instant.now();
 
+  @Override
   public String toString() {
-    return String.format(
-        "com.spring.storage.Storage(id=%d, freeSpace=%s, overallSpace=%s, description=%s, price=%s, created=%s)",
-        this.getId(), this.getFreeSpace(), this.getOverallSpace(), this.getDescription(),
-        this.getPrice(), this.getCreated());
+    return "Storage{" +
+        "id=" + id +
+        ", freeSpace=" + freeSpace +
+        ", overallSpace=" + overallSpace +
+        ", description='" + description + '\'' +
+        ", price=" + price +
+        ", created=" + created +
+        '}';
   }
 }

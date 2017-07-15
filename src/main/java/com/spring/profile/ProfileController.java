@@ -6,7 +6,6 @@ import com.spring.support.web.MessageHelper;
 import java.security.Principal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -18,6 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProfileController {
+
+  @ModelAttribute("module")
+  String module() {
+    return "profile";
+  }
 
   public static final String PROFILE_VIEW_NAME = "profile/profile";
 
@@ -37,15 +41,7 @@ public class ProfileController {
     if (errors.hasErrors()) {
       return PROFILE_VIEW_NAME;
     }
-    String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-    Assert.notNull(currentUserEmail);
-    Account updatedAccount = accountService
-        .updateByEmailWithFormFields(profileForm, currentUserEmail);
-    boolean ifExists = accountService.checkAccountIfExists(currentUserEmail, updatedAccount);
-    if (ifExists) {
-      MessageHelper.addErrorAttribute(ra, "email-exists.message");
-      return "redirect:/profile";
-    }
+    Account updatedAccount = profileForm.updateAccountFields(accountService.getCurrentAccount());
     Account savedAccount = accountService.save(updatedAccount);
     accountService.signin(savedAccount);
     MessageHelper.addSuccessAttribute(ra, "profile.success");

@@ -14,11 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
@@ -46,13 +45,22 @@ public class Account implements java.io.Serializable {
 
   }
 
-  public String toString() {
-    return String.format(
-        "com.spring.account.Account(id=%d, email=%s, firstName=%s, lastName=%s, password=%s, role=%s, created=%s)",
-        this.getId(), this.getEmail(), this.getFirstName(), this.getLastName(), this.getPassword(),
-        this.getRole(), this.getCreated());
+  public void addStorage(Storage storage) {
+    storages.add(storage);
   }
 
+  @Override
+  public String toString() {
+    return "Account{" +
+        "id=" + id +
+        ", email='" + email + '\'' +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", password='" + password + '\'' +
+        ", role='" + role + '\'' +
+        ", created=" + created +
+        '}';
+  }
 
   public enum RoleConstants {
     CLIENT("ROLE_CLIENT"),

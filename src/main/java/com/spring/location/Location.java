@@ -13,11 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "location")
@@ -47,10 +46,16 @@ public class Location implements java.io.Serializable {
 
   private Instant created = Instant.now();
 
+  @Override
   public String toString() {
-    return String.format(
-        "com.spring.location.Location(id=%d, city=%s, street=%s, country=%s, latitude=%s, longitude=%s, created=%s)",
-        this.getId(), this.getCity(), this.getStreet(), this.getCountry(), this.getLatitude(),
-        this.getLongitude(), this.getCreated());
+    return "Location{" +
+        "id=" + id +
+        ", city='" + city + '\'' +
+        ", street='" + street + '\'' +
+        ", country='" + country + '\'' +
+        ", latitude=" + latitude +
+        ", longitude=" + longitude +
+        ", created=" + created +
+        '}';
   }
 }

@@ -22,6 +22,7 @@ public abstract class WebAppConfigurationAware {
 
   @Inject
   protected WebApplicationContext wac;
+
   protected MockMvc mockMvc;
 
   @Before

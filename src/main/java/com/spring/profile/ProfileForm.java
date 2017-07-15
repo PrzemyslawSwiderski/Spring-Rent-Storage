@@ -12,9 +12,11 @@ public class ProfileForm {
 
   private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
   private static final String EMAIL_MESSAGE = "{email.message}";
+  private static final String EMAIL_EXISTS_MESSAGE = "{email-exists.message}";
 
   @NotBlank(message = NOT_BLANK_MESSAGE)
   @Email(message = EMAIL_MESSAGE)
+  @EmailExistsForProfileUpdate(message = EMAIL_EXISTS_MESSAGE)
   private String email;
 
   @NotBlank(message = NOT_BLANK_MESSAGE)
@@ -36,10 +38,11 @@ public class ProfileForm {
     setLastName(account.getLastName());
   }
 
-  public void updateAccountFields(Account accountToUpdate) {
+  public Account updateAccountFields(Account accountToUpdate) {
     accountToUpdate.setEmail(getEmail());
     accountToUpdate.setFirstName(getFirstName());
     accountToUpdate.setLastName(getLastName());
     accountToUpdate.setPassword(getPassword());
+    return accountToUpdate;
   }
 }
