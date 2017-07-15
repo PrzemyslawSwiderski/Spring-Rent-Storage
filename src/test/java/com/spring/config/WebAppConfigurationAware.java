@@ -16,13 +16,12 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles("test")
 @WebAppConfiguration
 @ContextConfiguration(classes = {
-    ApplicationConfig.class
+    ApplicationConfigTest.class
 })
 public abstract class WebAppConfigurationAware {
 
   @Inject
   protected WebApplicationContext wac;
-
   protected MockMvc mockMvc;
 
   @Before

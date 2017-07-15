@@ -3,6 +3,8 @@ package com.spring.account;
 import com.spring.profile.ProfileForm;
 import java.util.Collections;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,6 +28,7 @@ import org.springframework.util.Assert;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AccountService implements UserDetailsService {
 
+  @Getter
   @Autowired
   private AccountRepository accountRepository;
 

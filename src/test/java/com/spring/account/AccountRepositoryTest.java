@@ -11,8 +11,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
+@Transactional
 public class AccountRepositoryTest extends WebAppConfigurationAware {
 
   private final int howManyAccountsShouldBeGenerated = 20;

@@ -19,7 +19,7 @@ public class SignupControllerTest extends WebSecurityConfigurationAware {
         .andExpect(view().name("signup/signup"))
         .andExpect(content().string(
             allOf(
-                containsString("<title>Signup</title>"),
+                containsString("<title>Sign Up</title>"),
                 containsString("<legend>Please Sign Up</legend>")
             ))
         );

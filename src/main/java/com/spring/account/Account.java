@@ -38,7 +38,7 @@ public class Account implements java.io.Serializable {
   private String password;
   private String role = RoleConstants.USER.getRoleConstant();
   private Instant created = Instant.now();
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.PERSIST)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.PERSIST)
   private List<Storage> storages = new ArrayList<>();
 
   protected Account() {

@@ -44,8 +44,7 @@ public class Storage implements java.io.Serializable {
   @Column(scale = 2)
   private BigDecimal price;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-  @JoinColumn(name = "account_id")
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private Account account;
 
   private Instant created = Instant.now();

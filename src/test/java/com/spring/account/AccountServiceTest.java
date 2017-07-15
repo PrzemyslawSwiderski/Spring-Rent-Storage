@@ -51,7 +51,7 @@ public class AccountServiceTest {
   public void shouldThrowExceptionWhenUserNotFound() {
     // arrange
     thrown.expect(UsernameNotFoundException.class);
-    thrown.expectMessage("user not found");
+    thrown.expectMessage("User not found with the given username: user@example.com");
 
     when(accountRepositoryMock.findOneByEmail("user@example.com")).thenReturn(null);
     // act

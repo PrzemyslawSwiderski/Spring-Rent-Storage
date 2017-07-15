@@ -7,6 +7,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
@@ -36,6 +37,7 @@ public class ProfileController {
   }
 
   @PostMapping("profile")
+  @Transactional
   String updateProfile(@Valid @ModelAttribute ProfileForm profileForm, Errors errors,
       RedirectAttributes ra) {
     if (errors.hasErrors()) {

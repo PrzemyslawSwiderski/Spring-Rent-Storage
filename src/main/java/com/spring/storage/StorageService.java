@@ -4,6 +4,7 @@ import com.spring.account.Account;
 import com.spring.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StorageService {
@@ -18,6 +19,7 @@ public class StorageService {
     return storageRepository;
   }
 
+  @Transactional
   public Storage publishStorageSpace(StorageForm storageForm) {
 
     Account currentAccount = accountService.getCurrentAccount();
