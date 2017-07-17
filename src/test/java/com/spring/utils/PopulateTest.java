@@ -16,15 +16,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Transactional
 public class PopulateTest extends WebAppConfigurationAware {
 
-  private final int howManyAccountsShouldBeGenerated = 20;
-  private final int minStoragesToGenerate = 3;
-  private final int maxStoragesToGenerate = 7;
+  @Value("${test.config.database.howManyAccountsShouldBeGenerated}")
+  private int howManyAccountsShouldBeGenerated;
+
+  @Value("${test.config.database.minStoragesToGenerate}")
+  private int minStoragesToGenerate;
+
   @Autowired
   private AccountRepository accountRepository;
   @Autowired
@@ -32,16 +36,6 @@ public class PopulateTest extends WebAppConfigurationAware {
   @Autowired
   private LocationRepository locationsRepository;
 
-  @Before
-  public void seedData() {
-    AccountGenerator accountGenerator = AccountGenerator.builder()
-        .howManyAccountsShouldBeGenerated(howManyAccountsShouldBeGenerated)
-        .maxStoragesToGenerate(maxStoragesToGenerate)
-        .minStoragesToGenerate(minStoragesToGenerate)
-        .build();
-    List<Account> accounts = accountGenerator.generateMultipleEntities();
-    accountRepository.save(accounts);
-  }
 
   @Test
   public void shouldGetAllEntities() {
@@ -94,11 +88,5 @@ public class PopulateTest extends WebAppConfigurationAware {
         storage -> storage.getAccount() != null && storage.getAccount() instanceof Account);
   }
 
-  @After
-  public void deleteAllEntities() {
-    storageRepository.deleteAll();
-    accountRepository.deleteAll();
-    locationsRepository.deleteAll();
-  }
 
 }

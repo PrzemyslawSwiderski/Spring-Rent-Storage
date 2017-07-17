@@ -1,4 +1,4 @@
-package com.spring.publishStorageSpace;
+package com.spring.storage.controllers;
 
 import com.spring.storage.StorageForm;
 import com.spring.storage.StorageService;

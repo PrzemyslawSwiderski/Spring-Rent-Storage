@@ -11,40 +11,24 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Transactional
 public class AccountRepositoryTest extends WebAppConfigurationAware {
 
-  private final int howManyAccountsShouldBeGenerated = 20;
+  @Value("${test.config.database.howManyAccountsShouldBeGenerated}")
+  private int howManyAccountsShouldBeGenerated;
+
   @Autowired
   private AccountRepository accountRepository;
-
-  @Before
-  public void createNewAccounts() {
-    List<Account> accounts = new ArrayList<>();
-    for (int i = 1; i <= howManyAccountsShouldBeGenerated; i++) {
-      accounts.add(AccountBuilder.anAccount().generateExample());
-    }
-    log.debug(String.format("Accounts after creation: %s", Arrays.toString(accounts.toArray())));
-    accountRepository.save(accounts);
-  }
 
   @Test
   public void shouldGetAllAccounts() {
     List<Account> returnedAccounts = accountRepository.findAll();
     log.debug(String.format("Accounts found: %s", Arrays.toString(returnedAccounts.toArray())));
     assertThat(returnedAccounts.size()).isEqualTo(howManyAccountsShouldBeGenerated);
-  }
-
-  @After
-  public void deleteAllNewAccounts() {
-    accountRepository.deleteAll();
-    List<Account> returnedAccounts = accountRepository.findAll();
-    log.debug(
-        String.format("Accounts after deletion: %s", Arrays.toString(returnedAccounts.toArray())));
-    assertThat(returnedAccounts.size()).isEqualTo(0);
   }
 
 }

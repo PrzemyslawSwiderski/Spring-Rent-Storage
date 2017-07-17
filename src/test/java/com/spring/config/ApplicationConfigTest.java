@@ -11,6 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @PropertySource("classpath:persistence-mysql-test.properties")
 @PropertySource("classpath:application.properties")
+@PropertySource("classpath:test-config.properties")
 @ComponentScan(basePackageClasses = {Application.class})
 class ApplicationConfigTest {
 
@@ -18,10 +19,6 @@ class ApplicationConfigTest {
   @Import(ApplicationConfig.class)
   static class InnerConfiguration {
 
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-//      return new PropertySourcesPlaceholderConfigurer();
-//    }
   }
 
   @Bean
