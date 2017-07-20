@@ -23,7 +23,7 @@ public class ListStorageSpacesController {
   @GetMapping("storage/list")
   public String listStorages(Model model, Principal principal) {
     Assert.notNull(principal);
-    model.addAttribute(storageService.getAllStorages());
+    model.addAttribute("storages",storageService.getAllStorages());
 
     return "storage/list";
   }

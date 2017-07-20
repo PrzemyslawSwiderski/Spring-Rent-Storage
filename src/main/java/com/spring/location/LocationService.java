@@ -9,8 +9,5 @@ public class LocationService {
   @Autowired
   private LocationRepository locationRepository;
 
-  public LocationRepository getLocationRepository() {
-    return locationRepository;
-  }
 
 }

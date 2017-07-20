@@ -1,6 +1,7 @@
 package com.spring.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.profile.EmailExistsForProfileUpdate;
 import com.spring.storage.Storage;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Data
 @SuppressWarnings("serial")
@@ -23,21 +26,38 @@ import lombok.Setter;
 @Table(name = "account")
 public class Account implements java.io.Serializable {
 
+  private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
+  private static final String EMAIL_MESSAGE = "{email.message}";
+  private static final String EMAIL_EXISTS_MESSAGE = "{email-exists.message}";
+
   @Id
   @GeneratedValue
   @Column(name = "account_id", unique = true, nullable = false)
   @Setter(AccessLevel.NONE)
   private Long id;
+
   @Column(unique = true)
+  @NotBlank(message = NOT_BLANK_MESSAGE)
+  @Email(message = EMAIL_MESSAGE)
   private String email;
+
   @Column(name = "first_name")
+  @NotBlank(message = NOT_BLANK_MESSAGE)
   private String firstName;
+
   @Column(name = "last_name")
+  @NotBlank(message = NOT_BLANK_MESSAGE)
   private String lastName;
+
   @JsonIgnore
+  @NotBlank(message = NOT_BLANK_MESSAGE)
   private String password;
+
+  @NotBlank(message = NOT_BLANK_MESSAGE)
   private String role = RoleConstants.USER.getRoleConstant();
+
   private Instant created = Instant.now();
+
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.PERSIST)
   private List<Storage> storages = new ArrayList<>();
 

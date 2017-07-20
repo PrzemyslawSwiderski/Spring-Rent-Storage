@@ -22,7 +22,7 @@ public class UserAuthenticationIntegrationTest extends WebSecurityConfigurationA
   private AccountService accountService;
 
   private Account createNewAccount() {
-    Account account = AccountBuilder.anAccount().setEmail("user").setPassword("demo")
+    Account account = AccountBuilder.anAccount().setEmail("user@gmail.com").setPassword("demo")
         .setFirstName("TEST").setLastName("Last").build();
     log.debug(String.format("Account before save: %s", account));
     accountService.save(account);

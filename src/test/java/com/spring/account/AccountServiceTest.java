@@ -64,7 +64,6 @@ public class AccountServiceTest {
     Account demoUser = AccountBuilder.anAccount().setEmail("user@example.com").setPassword("demo")
         .setRole(Account.RoleConstants.USER.getRoleConstant()).build();
     when(accountRepositoryMock.findOneByEmail("user@example.com")).thenReturn(demoUser);
-
     // act
     UserDetails userDetails = accountService.loadUserByUsername("user@example.com");
 
