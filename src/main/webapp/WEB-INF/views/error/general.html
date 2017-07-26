@@ -7,7 +7,7 @@
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container central-content">
     <div th:replace="fragments/layout :: header"></div>
     <div th:replace="fragments/components :: alert (type='danger', message=${errorMessage})">Error: Error</div>
     <div th:replace="fragments/layout :: footer"></div>

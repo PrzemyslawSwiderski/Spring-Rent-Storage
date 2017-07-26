@@ -24,6 +24,15 @@
           th:errors="*{__${fieldName}__}">Incorrect</span>
   </div>
 </div>
+<!-- Reusable input -->
+<div th:fragment="outputTxtField (fieldName, description)" class="form-group">
+  <label th:for="${fieldName}" class="col-lg-2 control-label" th:text="${description}">Field
+    Description</label>
+  <div class="col-lg-10">
+    <span th:id="${fieldName}"
+          th:text="*{__${fieldName}__}"></span>
+  </div>
+</div>
 <!-- Reusable modal -->
 <div th:fragment="modal (id, title)" class="modal fade" th:id="${id}" tabindex="-1" role="dialog"
      aria-labelledby="modalLabel" aria-hidden="true">
@@ -40,5 +49,44 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div th:fragment="storagesList (storages,ifEditMode)" class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+    <tr class="table-active">
+      <th th:if="${!ifEditMode}">Account</th>
+      <th>Free Space [dm<sup>3</sup>]</th>
+      <th>Overall Space [dm<sup>3</sup>]</th>
+      <th>Price [euro/dm<sup>3</sup>]</th>
+      <th>Country</th>
+      <th>City</th>
+      <th></th>
+      <th th:if="${ifEditMode}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="storage : ${storages}">
+      <tr>
+        <td th:if="${!ifEditMode}" th:text="${storage.account.email}">Account</td>
+        <td th:text="${storage.freeSpace}">Free Space [dm<sup>3</sup>]</td>
+        <td th:text="${storage.overallSpace}">Overall Space [dm<sup>3</sup>]</td>
+        <td th:text="${storage.price}">Price [euro/dm<sup>3</sup>]</td>
+        <td th:text="${storage.location.country}">Country</td>
+        <td th:text="${storage.location.city}">City</td>
+        <td><a th:if="${!ifEditMode}" th:href="@{/storage/all/details/{id}(id=${storage.id})}"
+               class="btn btn-info btn-sm">Details</a>
+          <a th:if="${ifEditMode}" th:href="@{/storage/user/edit/{id}(id=${storage.id})}"
+             class="btn btn-primary btn-sm">Edit</a>
+        </td>
+        <td th:if="${ifEditMode}">
+          <a th:href="@{/storage/user/delete/{id}(id=${storage.id})}"
+             class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+    </th:block>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>

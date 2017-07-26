@@ -4,11 +4,13 @@ import com.google.common.base.Throwables;
 import java.text.MessageFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+@Slf4j
 @Controller
 class CustomErrorController {
 
@@ -21,7 +23,6 @@ class CustomErrorController {
     // retrieve some useful information from the request
     Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
     Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
-    // String servletName = (String) request.getAttribute("javax.servlet.error.servlet_name");
     String exceptionMessage = getExceptionMessage(throwable, statusCode);
 
     String requestUri = (String) request.getAttribute("javax.servlet.error.request_uri");
@@ -32,6 +33,8 @@ class CustomErrorController {
     String message = MessageFormat.format("{0} returned for {1} with message {2}",
         statusCode, requestUri, exceptionMessage
     );
+
+    log.error(message, throwable);
 
     model.addAttribute("errorMessage", message);
     return "error/general";

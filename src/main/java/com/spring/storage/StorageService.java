@@ -2,8 +2,8 @@ package com.spring.storage;
 
 import com.spring.account.Account;
 import com.spring.account.AccountService;
-import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,15 +17,17 @@ public class StorageService {
   @Autowired
   private AccountService accountService;
 
-  @Transactional
-  public Storage publishStorageSpace(StorageForm storageForm) {
-
+  private void connectStorageToCurrentAccountAndSave(Storage storage) {
     Account currentAccount = accountService.getCurrentAccount();
-    Storage storage = storageForm.createStorage();
     storage.setAccount(currentAccount);
     currentAccount.addStorage(storage);
-
     storageRepository.save(storage);
+  }
+
+  @Transactional
+  public Storage saveStorageSpace(StorageForm storageForm) {
+    Storage storage = storageForm.createStorage();
+    connectStorageToCurrentAccountAndSave(storage);
     return storage;
   }
 
@@ -34,5 +36,26 @@ public class StorageService {
     List<Storage> storagesList;
     storagesList = storageRepository.findAll();
     return storagesList;
+  }
+
+  @Transactional
+  public void deleteStorageByID(Long id) {
+    storageRepository.delete(id);
+  }
+
+  @Transactional
+  public List<Storage> getAllUserStorages() {
+    List<Storage> storagesList;
+    Account currentAccount = accountService.getCurrentAccount();
+    Hibernate.initialize(currentAccount.getStorages());
+    storagesList = currentAccount.getStorages();
+    return storagesList;
+  }
+
+  @Transactional
+  public Storage getStorageById(Long id) {
+    Storage storage;
+    storage = storageRepository.findOne(id);
+    return storage;
   }
 }

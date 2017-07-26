@@ -27,7 +27,6 @@ public class Storage implements java.io.Serializable {
   @Id
   @Column(name = "storage_id", unique = true, nullable = false)
   @GeneratedValue
-  @Setter(AccessLevel.NONE)
   private Long id;
 
   @OneToOne(mappedBy = "storage", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

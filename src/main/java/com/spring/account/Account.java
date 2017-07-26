@@ -1,7 +1,6 @@
 package com.spring.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.profile.EmailExistsForProfileUpdate;
 import com.spring.storage.Storage;
 import java.time.Instant;
 import java.util.ArrayList;
