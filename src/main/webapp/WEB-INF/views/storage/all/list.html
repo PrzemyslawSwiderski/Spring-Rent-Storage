@@ -13,7 +13,7 @@
           th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/layout :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
 <!-- /* Handle the flash message */-->
 <th:block th:if="${message != null}">
@@ -30,6 +30,6 @@
   </h3>
   <div th:replace="fragments/components :: storagesList(${storages},${false})"></div>
 </div>
-<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

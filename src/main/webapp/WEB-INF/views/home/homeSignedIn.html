@@ -9,7 +9,7 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/layout :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 <div class="container">
     <!-- /* Handle the flash message */-->
     <th:block th:if="${message != null}">
@@ -20,6 +20,6 @@
         Welcome to the Spring MVC application!
     </h3>
 </div>
-<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

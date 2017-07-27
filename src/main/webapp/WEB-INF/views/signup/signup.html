@@ -10,7 +10,7 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/layout :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 <form class="form-narrow form-horizontal" method="post" th:action="@{/signup}" th:object="${signupForm}"
       th:fragment="signupForm">
     <!--/* Show general error message when form contains errors */-->
@@ -45,6 +45,6 @@
         </div>
     </fieldset>
 </form>
-<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
