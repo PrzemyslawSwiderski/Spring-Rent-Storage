@@ -5,6 +5,9 @@ import com.spring.account.AccountService;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +38,18 @@ public class StorageService {
   public List<Storage> getAllStorages() {
     List<Storage> storagesList;
     storagesList = storageRepository.findAll();
+    return storagesList;
+  }
+
+
+  @Transactional
+  public List<Storage> getSortedStorages(String fieldName, String order) {
+    if (fieldName == null || order == null) {
+      return getAllStorages();
+    }
+    Direction direction = order.equals("asc") ? Direction.ASC : Direction.DESC;
+    List<Storage> storagesList;
+    storagesList = storageRepository.findAll(new Sort(new Order(direction, fieldName)));
     return storagesList;
   }
 

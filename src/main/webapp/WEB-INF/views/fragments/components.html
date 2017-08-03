@@ -5,6 +5,15 @@
         th:href="@{/resources/css/bootstrap.min.css}"/>
 </head>
 <body>
+
+<!-- Reusable sort buttons-->
+<div th:fragment="sortButtons (fieldName)">
+  <a th:href="@{./list(sortField=${fieldName},order='desc')}"><span
+      class="glyphicon glyphicon-triangle-bottom"></span></a>
+  <a th:href="@{./list(sortField=${fieldName},order='asc')}"><span
+      class="glyphicon glyphicon-triangle-top"></span></a>
+</div>
+
 <!-- Reusable alert -->
 <div th:fragment="alert (type, message)" class="alert alert-dismissable"
      th:classappend="'alert-' + ${type}">
@@ -14,9 +23,9 @@
 <!-- Reusable input -->
 <div th:fragment="inputTxtField (fieldName, description,type)" class="form-group"
      th:classappend="${#fields.hasErrors(fieldName)}? 'has-error'">
-  <label th:for="${fieldName}" class="col-lg-2 control-label" th:text="${description}">Field
+  <label th:for="${fieldName}" class="col-lg-2" th:text="${description}">Field
     Description</label>
-  <div class="col-lg-10">
+  <div class="col-lg-offset-3">
     <input th:type="${type}" class="form-control" th:id="${fieldName}"
            th:placeholder="${description}"
            th:field="*{__${fieldName}__}"/>
@@ -26,9 +35,9 @@
 </div>
 <!-- Reusable input -->
 <div th:fragment="outputTxtField (fieldName, description)" class="form-group">
-  <label th:for="${fieldName}" class="col-lg-2 control-label" th:text="${description}">Field
+  <label th:for="${fieldName}" class="col-lg-2" th:text="${description}">Field
     Description</label>
-  <div class="col-lg-10">
+  <div class="col-lg-offset-3">
     <span th:id="${fieldName}"
           th:text="*{__${fieldName}__}"></span>
   </div>
@@ -54,12 +63,24 @@
   <table class="table table-bordered">
     <thead>
     <tr class="table-active">
-      <th th:if="${!ifEditMode}">Account</th>
-      <th>Free Space [dm<sup>3</sup>]</th>
-      <th>Overall Space [dm<sup>3</sup>]</th>
-      <th>Price [euro/dm<sup>3</sup>]</th>
-      <th>Country</th>
-      <th>City</th>
+      <th th:if="${!ifEditMode}">Account
+        <div th:replace=" :: sortButtons('account.email')"></div>
+      </th>
+      <th>Free Space [dm<sup>3</sup>]
+        <div th:replace=" :: sortButtons('freeSpace')"></div>
+      </th>
+      <th>Overall Space [dm<sup>3</sup>]
+        <div th:replace=" :: sortButtons('overallSpace')"></div>
+      </th>
+      <th>Price [euro/dm<sup>3</sup>]
+        <div th:replace=" :: sortButtons('price')"></div>
+      </th>
+      <th>Country
+        <div th:replace=" :: sortButtons('location.country')"></div>
+      </th>
+      <th>City
+        <div th:replace=" :: sortButtons('location.city')"></div>
+      </th>
       <th></th>
       <th th:if="${ifEditMode}"></th>
     </tr>
