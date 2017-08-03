@@ -26,11 +26,12 @@ public class StorageSpaceListController {
   }
 
   @GetMapping("storage/user/list")
-  public String listUserStorages(Model model, Principal principal) {
+  public String listUserStorages(Model model, Principal principal,
+      @RequestParam(value = "sortField", required = false) String sortField,
+      @RequestParam(value = "order", required = false) String order) {
     Assert.notNull(principal);
-
     model.addAttribute("module", "listUserStorageSpaces");
-    model.addAttribute("storages", storageService.getAllUserStorages());
+    model.addAttribute("storages", storageService.getSortedStorages(sortField, order));
     return "storage/user/list";
   }
 }
